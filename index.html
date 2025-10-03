@@ -47,12 +47,10 @@
                     </div>
                     <div class="form-group">
                         <label for="prnNumber">PRN / Seat Number</label>
-                        {/* The 'pattern', 'maxlength', and 'oninput' attributes ensure only a 6-digit number is accepted. */}
                         <input type="text" id="prnNumber" placeholder="Enter your 6-digit PRN or Seat Number" required pattern="\d{6}" maxlength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter a 6-digit number.">
                     </div>
                     <div class="form-group">
                         <label for="motherName">Mother's Name</label>
-                        {/* The 'pattern' and 'oninput' attributes ensure only alphabetical characters and a space are accepted. */}
                         <input type="text" id="motherName" placeholder="Enter your mother's first and last name" required pattern="[A-Za-z]+ [A-Za-z]+" oninput="this.value = this.value.replace(/[^A-Za-z ]/g, '');" title="Please enter first and last name separated by a space.">
                     </div>
                     <button type="submit" class="btn">View</button>
@@ -60,7 +58,6 @@
             </div>
 
             <div class="result-section" id="resultSection">
-                {/* This is the image that will be displayed upon successful form submission. */}
                 <img src="https://raw.githubusercontent.com/smith-png/image-/main/dogs.jpg" alt="Displayed Image" style="width: 100%; max-width: 600px; display: block; margin: 0 auto 20px; border-radius: 10px;">
                 <button class="btn btn-secondary" onclick="resetForm()">Search Again</button>
             </div>
@@ -72,15 +69,12 @@
     </div>
 
     <script>
-        // This script listens for the form submission.
         document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevents the page from reloading.
-            // Hides the search form and shows the result section.
+            e.preventDefault(); 
             document.getElementById('searchSection').style.display = 'none';
             document.getElementById('resultSection').style.display = 'block';
         });
 
-        // This function resets the form when the "Search Again" button is clicked.
         function resetForm() {
             document.getElementById('searchForm').reset();
             document.getElementById('searchSection').style.display = 'block';
