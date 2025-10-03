@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUHS UG Result - Summer 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .search-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .result-section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-card {
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .result-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .result-header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .result-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .result-status.pass {
+            background: #10b981;
+        }
+
+        .result-status.fail {
+            background: #ef4444;
+        }
+
+        .student-info {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 200px;
+            color: #555;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #333;
+        }
+
+        .marks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .marks-table th {
+            background: #2a5298;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .marks-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .marks-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .marks-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .error-message {
+            display: none;
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .info-row {
+                flex-direction: column;
+            }
+
+            .info-label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .marks-table {
+                font-size: 14px;
+            }
+
+            .marks-table th, .marks-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Maharashtra University of Health Sciences</h1>
+            <p>UG Result - Summer 2025 Examination</p>
+        </div>
+
+        <div class="content">
+            <div class="search-section">
+                <h3 style="margin-bottom: 20px; color: #333;">Search Your Result</h3>
+                
+                <div class="error-message" id="errorMessage">
+                    Invalid PRN/Seat Number. Please check and try again.
+                </div>
+
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label for="examType">Examination Type</label>
+                        <select id="examType" required>
+                            <option value="">Select Examination</option>
+                            <option value="mbbs">MBBS</option>
+                            <option value="bds">BDS</option>
+                            <option value="bams">BAMS</option>
+                            <option value="bhms">BHMS</option>
+                            <option value="bpt">BPT</option>
+                            <option value="nursing">B.Sc Nursing</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prnNumber">PRN / Seat Number</label>
+                        <input type="text" id="prnNumber" placeholder="Enter your PRN or Seat Number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motherName">Mother's Name</label>
+                        <input type="text" id="motherName" placeholder="Enter your mother's name" required>
+                    </div>
+
+                    <button type="submit" class="btn">View Result</button>
+                </form>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <div class="result-card">
+                    <div class="result-header">
+                        <h2>Examination Result</h2>
+                        <div class="result-status pass" id="resultStatus">PASSED</div>
+                    </div>
+
+                    <div class="student-info">
+                        <div class="info-row">
+                            <div class="info-label">PRN Number:</div>
+                            <div class="info-value" id="displayPRN">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Student Name:</div>
+                            <div class="info-value" id="displayName">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Mother's Name:</div>
+                            <div class="info-value" id="displayMother">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Examination:</div>
+                            <div class="info-value" id="displayExam">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">College:</div>
+                            <div class="info-value" id="displayCollege">-</div>
+                        </div>
+                    </div>
+
+                    <table class="marks-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Internal</th>
+                                <th>External</th>
+                                <th>Total</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody id="marksTableBody">
+                        </tbody>
+                    </table>
+
+                    <div class="student-info" style="margin-top: 20px;">
+                        <div class="info-row">
+                            <div class="info-label">Total Marks:</div>
+                            <div class="info-value" id="totalMarks" style="font-weight: bold; font-size: 18px;">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Percentage:</div>
+                            <div class="info-value" id="percentage" style="font-weight: bold; font-size: 18px;">-</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Result:</div>
+                            <div class="info-value" id="finalResult" style="font-weight: bold; font-size: 18px; color: #10b981;">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" onclick="resetForm()">Search Another Result</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Maharashtra University of Health Sciences, Nashik</p>
+            <p>For queries, contact: examcell@muhs.ac.in</p>
+        </div>
+    </div>
+
+    <script>
+        const sampleData = {
+            'MBBS001': {
+                name: 'Rajesh Kumar Sharma',
+                mother: 'Sunita Sharma',
+                exam: 'MBBS - First Year',
+                college: 'Grant Medical College, Mumbai',
+                subjects: [
+                    { name: 'Anatomy', internal: 18, external: 72, total: 90, result: 'Pass' },
+                    { name: 'Physiology', internal: 16, external: 68, total: 84, result: 'Pass' },
+                    { name: 'Biochemistry', internal: 17, external: 70, total: 87, result: 'Pass' }
+                ]
+            },
+            'BDS001': {
+                name: 'Priya Deshmukh',
+                mother: 'Anita Deshmukh',
+                exam: 'BDS - Second Year',
+                college: 'Nair Hospital Dental College, Mumbai',
+                subjects: [
+                    { name: 'Dental Materials', internal: 19, external: 75, total: 94, result: 'Pass' },
+                    { name: 'Oral Pathology', internal: 17, external: 71, total: 88, result: 'Pass' },
+                    { name: 'General Medicine', internal: 18, external: 73, total: 91, result: 'Pass' }
+                ]
+            },
+            'BAMS001': {
+                name: 'Amit Patil',
+                mother: 'Mangala Patil',
+                exam: 'BAMS - Third Year',
+                college: 'College of Ayurved, Pune',
+                subjects: [
+                    { name: 'Dravyaguna', internal: 16, external: 69, total: 85, result: 'Pass' },
+                    { name: 'Rasashastra', internal: 18, external: 74, total: 92, result: 'Pass' },
+                    { name: 'Agadtantra', internal: 17, external: 70, total: 87, result: 'Pass' }
+                ]
+            }
+        };
+
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const prn = document.getElementById('prnNumber').value.trim().toUpperCase();
+            const mother = document.getElementById('motherName').value.trim();
+            const examType = document.getElementById('examType').value;
+            
+            if (!examType) {
+                showError('Please select examination type');
+                return;
+            }
+            
+            const studentData = sampleData[prn];
+            
+            if (studentData) {
+                displayResult(prn, studentData, mother);
+            } else {
+                showError('Invalid PRN/Seat Number. Please check and try again.');
+            }
+        });
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function displayResult(prn, data, mother) {
+            document.getElementById('displayPRN').textContent = prn;
+            document.getElementById('displayName').textContent = data.name;
+            document.getElementById('displayMother').textContent = mother;
+            document.getElementById('displayExam').textContent = data.exam;
+            document.getElementById('displayCollege').textContent = data.college;
+            
+            const tbody = document.getElementById('marksTableBody');
+            tbody.innerHTML = '';
+            
+            let totalMarks = 0;
+            let maxMarks = 0;
+            let allPass = true;
+            
+            data.subjects.forEach(subject => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${subject.name}</td>
+                    <td>${subject.internal}</td>
+                    <td>${subject.external}</td>
+                    <td><strong>${subject.total}</strong></td>
+                    <td style="color: ${subject.result === 'Pass' ? '#10b981' : '#ef4444'}; font-weight: bold;">${subject.result}</td>
+                `;
+                totalMarks += subject.total;
+                maxMarks += 100;
+                if (subject.result !== 'Pass') allPass = false;
+            });
+            
+            const percentage = ((totalMarks / maxMarks) * 100).toFixed(2);
+            
+            document.getElementById('totalMarks').textContent = `${totalMarks} / ${maxMarks}`;
+            document.getElementById('percentage').textContent = `${percentage}%`;
+            
+            const resultStatus = allPass ? 'PASSED' : 'FAILED';
+            const resultColor = allPass ? '#10b981' : '#ef4444';
+            
+            document.getElementById('finalResult').textContent = resultStatus;
+            document.getElementById('finalResult').style.color = resultColor;
+            document.getElementById('resultStatus').textContent = resultStatus;
+            document.getElementById('resultStatus').className = `result-status ${allPass ? 'pass' : 'fail'}`;
+            
+            document.querySelector('.search-section').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+        function resetForm() {
+            document.getElementById('searchForm').reset();
+            document.querySelector('.search-section').style.display = 'block';
+            document.getElementById('resultSection').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
